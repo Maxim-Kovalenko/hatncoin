@@ -1,5 +1,3 @@
-package example;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +10,7 @@ public class Scene1 {
     private Scene scene;
 
     public Scene1(Stage stage) {
-        Image image = new Image(getClass().getResource("/hat.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/resources/hat.png").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(100);
         imageView.setPreserveRatio(true);

@@ -1,5 +1,3 @@
-package example;
-
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -35,7 +33,7 @@ public class Scene2 {
         root = new Pane();
         scene = new Scene(root, 400, 400);
 
-        hat = new Hat("/hat.png", 180, 330);
+        hat = new Hat("/resources/hat.png", 180, 330);
         root.getChildren().add(hat.getView());
 
         scoreLabel = new Label("Score: 0");
@@ -83,12 +81,12 @@ public class Scene2 {
         if (isGameOver) return;
 
         double x1 = random.nextDouble() * (400 - 40);
-        Coin coin = new Coin("/coin.png", x1, 0);
+        Coin coin = new Coin("/resources/coin.png", x1, 0);
         coins.add(coin);
         root.getChildren().add(coin.getView());
 
         double x2 = random.nextDouble() * (400 - 40);
-        Bomb bomb = new Bomb("/bomb.png", x2, 0);
+        Bomb bomb = new Bomb("/resources/bomb.png", x2, 0);
         bombs.add(bomb);
         root.getChildren().add(bomb.getView());
     }
