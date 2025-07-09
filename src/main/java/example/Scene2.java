@@ -1,3 +1,5 @@
+package main.java.example;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;

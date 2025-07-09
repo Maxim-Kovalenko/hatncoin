@@ -1,3 +1,5 @@
+package main.java.example;
+
 public class Bomb extends GameObject {
     private static final double FALL_SPEED = 2;
 

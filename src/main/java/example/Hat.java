@@ -1,3 +1,5 @@
+package main.java.example;
+
 import javafx.scene.input.KeyCode;
 
 public class Hat extends GameObject {

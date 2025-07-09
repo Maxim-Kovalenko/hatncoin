@@ -1,3 +1,5 @@
+package main.java.example;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
