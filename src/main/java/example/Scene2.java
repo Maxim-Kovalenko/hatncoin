@@ -26,7 +26,6 @@ public class Scene2 {
     private Label gameOverLabel;
     private int score = 0;
     private boolean isGameOver = false;
-
     private Random random = new Random();
     private Stage stage;
 
@@ -103,22 +102,18 @@ public class Scene2 {
         while (iterator.hasNext()) {
             FallingObject obj = iterator.next();
 
-            if (obj instanceof Coin coin) {
-                if (coin.isCollectedBy(hat)) {
-                    score++;
-                    scoreLabel.setText("Score: " + score);
-                    root.getChildren().remove(coin.getView());
-                    iterator.remove();
-                } else if (coin.isOffScreen()) {
-                    root.getChildren().remove(coin.getView());
-                    iterator.remove();
-                }
-            } else if (obj instanceof Bomb bomb) {
-                if (bomb.hitsHat(hat)) {
-                    endGame();
-                    return;
-                } else if (bomb.isOffScreen()) {
-                    root.getChildren().remove(bomb.getView());
+            boolean shouldEndGame = obj.handleCollision(hat, root, this);
+            if (shouldEndGame) {
+                endGame();
+                return;
+            }
+
+            if (obj.isOffScreen()) {
+                root.getChildren().remove(obj.getView());
+                iterator.remove();
+            } else if (!(obj instanceof Bomb && !shouldEndGame)) {
+                if (obj instanceof Coin coin &&
+                        coin.getView().getParent() == null) {
                     iterator.remove();
                 }
             }
@@ -138,5 +133,10 @@ public class Scene2 {
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(e -> menu.mainmenu(stage));
         delay.play();
+    }
+
+    public void addScore(int value) {
+        score += value;
+        scoreLabel.setText("Score: " + score);
     }
 }

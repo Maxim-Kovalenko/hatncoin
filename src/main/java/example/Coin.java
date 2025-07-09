@@ -1,5 +1,7 @@
 package main.java.example;
 
+import javafx.scene.layout.Pane;
+
 public class Coin extends FallingObject {
     private static final double FALL_SPEED = 2;
 
@@ -13,7 +15,12 @@ public class Coin extends FallingObject {
         imageView.setY(y);
     }
 
-    public boolean isCollectedBy(Hat hat) {
-        return imageView.getBoundsInParent().intersects(hat.getView().getBoundsInParent());
+    @Override
+    public boolean handleCollision(Hat hat, Pane root, Scene2 scene) {
+        if (imageView.getBoundsInParent().intersects(hat.getView().getBoundsInParent())) {
+            scene.addScore(1);
+            root.getChildren().remove(imageView);
+        }
+        return false;
     }
 }

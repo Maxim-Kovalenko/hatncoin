@@ -1,5 +1,7 @@
 package main.java.example;
 
+import javafx.scene.layout.Pane;
+
 public class Bomb extends FallingObject {
     private static final double FALL_SPEED = 2;
 
@@ -13,7 +15,8 @@ public class Bomb extends FallingObject {
         imageView.setY(y);
     }
 
-    public boolean hitsHat(Hat hat) {
+    @Override
+    public boolean handleCollision(Hat hat, Pane root, Scene2 scene) {
         return imageView.getBoundsInParent().intersects(hat.getView().getBoundsInParent());
     }
 }
