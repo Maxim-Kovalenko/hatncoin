@@ -1,6 +1,6 @@
 package main.java.example;
 
-public class Bomb extends GameObject {
+public class Bomb extends FallingObject {
     private static final double FALL_SPEED = 2;
 
     public Bomb(String imagePath, double x, double y) {
@@ -15,9 +15,5 @@ public class Bomb extends GameObject {
 
     public boolean hitsHat(Hat hat) {
         return imageView.getBoundsInParent().intersects(hat.getView().getBoundsInParent());
-    }
-
-    public boolean isOffScreen() {
-        return y > 400;
     }
 }

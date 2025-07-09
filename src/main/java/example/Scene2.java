@@ -21,8 +21,7 @@ public class Scene2 {
     private Pane root;
     private Scene scene;
     private Hat hat;
-    private ArrayList<Coin> coins = new ArrayList<>();
-    private ArrayList<Bomb> bombs = new ArrayList<>();
+    private ArrayList<FallingObject> objects = new ArrayList<>();
     private Label scoreLabel;
     private Label gameOverLabel;
     private int score = 0;
@@ -84,48 +83,44 @@ public class Scene2 {
 
         double x1 = random.nextDouble() * (400 - 40);
         Coin coin = new Coin("/resources/coin.png", x1, 0);
-        coins.add(coin);
+        objects.add(coin);
         root.getChildren().add(coin.getView());
 
         double x2 = random.nextDouble() * (400 - 40);
         Bomb bomb = new Bomb("/resources/bomb.png", x2, 0);
-        bombs.add(bomb);
+        objects.add(bomb);
         root.getChildren().add(bomb.getView());
     }
 
     private void updateObjects() {
-        for (Coin coin : coins) {
-            coin.move();
-        }
-        for (Bomb bomb : bombs) {
-            bomb.move();
+        for (FallingObject obj : objects) {
+            obj.move();
         }
     }
 
     private void checkCollisions() {
-        Iterator<Coin> coinIterator = coins.iterator();
-        while (coinIterator.hasNext()) {
-            Coin coin = coinIterator.next();
-            if (coin.isCollectedBy(hat)) {
-                score++;
-                scoreLabel.setText("Score: " + score);
-                root.getChildren().remove(coin.getView());
-                coinIterator.remove();
-            } else if (coin.isOffScreen()) {
-                root.getChildren().remove(coin.getView());
-                coinIterator.remove();
-            }
-        }
+        Iterator<FallingObject> iterator = objects.iterator();
+        while (iterator.hasNext()) {
+            FallingObject obj = iterator.next();
 
-        Iterator<Bomb> bombIterator = bombs.iterator();
-        while (bombIterator.hasNext()) {
-            Bomb bomb = bombIterator.next();
-            if (bomb.hitsHat(hat)) {
-                endGame();
-                return;
-            } else if (bomb.isOffScreen()) {
-                root.getChildren().remove(bomb.getView());
-                bombIterator.remove();
+            if (obj instanceof Coin coin) {
+                if (coin.isCollectedBy(hat)) {
+                    score++;
+                    scoreLabel.setText("Score: " + score);
+                    root.getChildren().remove(coin.getView());
+                    iterator.remove();
+                } else if (coin.isOffScreen()) {
+                    root.getChildren().remove(coin.getView());
+                    iterator.remove();
+                }
+            } else if (obj instanceof Bomb bomb) {
+                if (bomb.hitsHat(hat)) {
+                    endGame();
+                    return;
+                } else if (bomb.isOffScreen()) {
+                    root.getChildren().remove(bomb.getView());
+                    iterator.remove();
+                }
             }
         }
     }

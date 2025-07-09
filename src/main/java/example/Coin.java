@@ -1,6 +1,6 @@
 package main.java.example;
 
-public class Coin extends GameObject {
+public class Coin extends FallingObject {
     private static final double FALL_SPEED = 2;
 
     public Coin(String imagePath, double x, double y) {
@@ -15,9 +15,5 @@ public class Coin extends GameObject {
 
     public boolean isCollectedBy(Hat hat) {
         return imageView.getBoundsInParent().intersects(hat.getView().getBoundsInParent());
-    }
-
-    public boolean isOffScreen() {
-        return y > 400;
     }
 }

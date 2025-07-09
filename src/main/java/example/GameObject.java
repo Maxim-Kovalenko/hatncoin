@@ -3,6 +3,8 @@ package main.java.example;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public abstract class GameObject {
     protected double x, y;
     protected ImageView imageView;
@@ -10,7 +12,7 @@ public abstract class GameObject {
     public GameObject(String imagePath, double x, double y) {
         this.x = x;
         this.y = y;
-        Image image = new Image(getClass().getResourceAsStream(imagePath));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         imageView = new ImageView(image);
         imageView.setFitWidth(40);
         imageView.setPreserveRatio(true);
